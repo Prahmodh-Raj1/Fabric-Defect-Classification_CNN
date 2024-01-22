@@ -38,6 +38,7 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, use_column_width=True)
         classification = perform_classification(image, model)
+        #defining the various classes for classification
         classes = ['Holes', 'Horizontal', 'Vertical']
         predicted_class = np.argmax(classification)
         classification_max = classification[0][predicted_class]
@@ -46,7 +47,7 @@ def main():
         output_placeholder.write(classification_max)
 
         result = f"The defect in the fabric is of type: {classes[predicted_class]}"
-        st.success(result)
+        st.success(result)  #displaying the result message
 
 if __name__ == "__main__":
     main()
