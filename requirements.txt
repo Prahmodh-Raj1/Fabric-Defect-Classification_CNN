@@ -1,7 +1,7 @@
 streamlit
 tensorflow
 matplotlib
-sklearn
+scikit-learn
 seaborn
 PIL
 cv2
