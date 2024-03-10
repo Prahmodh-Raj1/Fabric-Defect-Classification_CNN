@@ -8,9 +8,7 @@ from PIL import Image, ImageOps
 def load_model():
     model = tf.keras.models.load_model(r'fabricdefect.hdf5', compile=False)
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-    # Specify the loss function explicitly
-    loss_fn = tf.keras.losses.CategoricalCrossentropy()
-    model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
+    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
 def perform_classification(image, model):
@@ -39,7 +37,6 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, use_column_width=True)
         classification = perform_classification(image, model)
-        #defining the various classes for classification
         classes = ['Holes', 'Horizontal', 'Vertical']
         predicted_class = np.argmax(classification)
         classification_max = classification[0][predicted_class]
@@ -48,7 +45,7 @@ def main():
         output_placeholder.write(classification_max)
 
         result = f"The defect in the fabric is of type: {classes[predicted_class]}"
-        st.success(result)  #displaying the result message
+        st.success(result)
 
 if __name__ == "__main__":
     main()
