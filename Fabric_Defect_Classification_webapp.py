@@ -1,14 +1,17 @@
+
 import numpy as np
 import streamlit as st
 import tensorflow as tf
 from tensorflow import keras
 from PIL import Image, ImageOps
 
+def custom_categorical_crossentropy(y_true, y_pred):
+    return keras.losses.categorical_crossentropy(y_true, y_pred, from_logits=False)
 @st.cache_resource
 def load_model():
     model = tf.keras.models.load_model(r'fabricdefect.hdf5', compile=False)
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=optimizer, loss=custom_categorical_crossentropy, metrics=['accuracy'])
     return model
 
 def perform_classification(image, model):
