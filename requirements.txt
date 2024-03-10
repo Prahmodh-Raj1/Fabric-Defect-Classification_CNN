@@ -3,8 +3,7 @@ tensorflow
 matplotlib
 scikit-learn
 seaborn
-PIL
-cv2
+Pillow
 numpy
 pandas
-os
+
