@@ -1,4 +1,3 @@
-
 import numpy as np
 import streamlit as st
 import tensorflow as tf
@@ -9,7 +8,9 @@ from PIL import Image, ImageOps
 def load_model():
     model = tf.keras.models.load_model(r'fabricdefect.hdf5', compile=False)
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+    # Specify the loss function explicitly
+    loss_fn = tf.keras.losses.CategoricalCrossentropy()
+    model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
     return model
 
 def perform_classification(image, model):
